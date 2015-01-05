@@ -12,7 +12,7 @@ But the greatest of all ways to wait has been unattainable until now.
 This package lets you sprinkle sleep statements throughout your code to convince your boss to buy better hardware.
 Or rate-limit your API usage without using setTimeout.
 
-    // Shopify wants no more that two events per second.
+    // Shopify wants no more than two events per second.
     var results = [];
     for (var i = 0; i < numPages; i++) {
         Meteor.sleep(500);

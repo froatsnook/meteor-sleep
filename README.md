@@ -23,7 +23,7 @@ Or rate-limit your API usage without using setTimeout.
 
 Setup
 =====
-* Install `meteor install froatsnook:sleep`
+* Install `meteor add froatsnook:sleep`
 
 License
 =======

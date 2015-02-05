@@ -24,6 +24,41 @@ for (var i = 0; i < numPages; i++) {
     var currentPage = FetchOrders(i);
     results = results.concat(currentPage);
 }
+HandleResults(results);
+```
+
+Alternatives
+============
+The real advantage is code clarity.  The following examples demonstrate how
+this code might be written in the browser (where fibers are not available).
+
+```javascript
+// plain javascript
+var results;
+(function fetcher(i) {
+    if (i === 5) {
+        HandleResults(results);
+        return;
+    }
+
+    var currentPage = FetchOrders(i);
+    results = results.concat(currentPage);
+    Meteor.setTimeout(function() {
+        caller(i + 1);
+    }, 500);
+})(0);
+```
+
+```javascript
+// async.js
+async.concatSeries(_.range(5), function(i, callback) {
+    var currentPage = FetchOrders(i);
+    Meteor.setTimeout(function() {
+        callback(null, currentPage);
+    }, 500);
+}, function(err, results) {
+    HandleResults(results);
+});
 ```
 
 Setup

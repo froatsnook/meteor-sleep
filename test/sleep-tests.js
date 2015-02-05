@@ -11,6 +11,18 @@ if (Meteor.isServer) {
     Tinytest.add("typeof Meteor.sleep === \"function\"", function(test) {
         test.equal(typeof Meteor.sleep, "function");
     });
+
+    Tinytest.addAsync("for (var i=0;i<5;i++)Meteor.sleep(200);", function(test, done) {
+        var start = Date.now();
+        for (var i = 0; i < 5; i++) {
+            Meteor.sleep(200);
+        }
+        var end = Date.now();
+        var elapsed = end - start;
+        var variance = Math.abs(1000 - elapsed);
+        test.isTrue(variance < 10);
+        done();
+    });
 } else {
     Tinytest.add("typeof Meteor.sleep === \"undefined\"", function(test) {
         test.equal(typeof Meteor.sleep, "undefined");

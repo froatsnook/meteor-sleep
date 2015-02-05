@@ -2,7 +2,7 @@ Package.describe({
     name: "froatsnook:sleep",
     summary: "Fiber-friendly sleep statements (server only)",
     version: "1.0.1",
-    git: "https://github.com/froatsnook/sleep"
+    git: "https://github.com/froatsnook/meteor-sleep"
 });
 
 Package.onUse(function(api) {

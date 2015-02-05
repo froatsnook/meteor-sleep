@@ -29,11 +29,6 @@ if (Meteor.isServer) {
     });
 
     Tinytest.addAsync("Meteor.sleep(0)", function(test, done) {
-        if (!Meteor.isClient) {
-            done();
-            return;
-        }
-
         Meteor.call("sleep", 0, function(err, elapsed) {
             test.isUndefined(err);
 
@@ -44,11 +39,6 @@ if (Meteor.isServer) {
     });
 
     Tinytest.addAsync("Meteor.sleep(1000)", function(test, done) {
-        if (!Meteor.isClient) {
-            done();
-            return;
-        }
-
         Meteor.call("sleep", 1000, function(err, elapsed) {
             test.isUndefined(err);
 
@@ -59,11 +49,6 @@ if (Meteor.isServer) {
     });
 
     Tinytest.addAsync("Meteor.sleep()", function(test, done) {
-        if (!Meteor.isClient) {
-            done();
-            return;
-        }
-
         Meteor.call("sleep", undefined, function(err, elapsed) {
             test.isUndefined(err);
 

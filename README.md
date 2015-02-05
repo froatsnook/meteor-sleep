@@ -9,10 +9,11 @@ Meteor.sleep(1000); // ms
 
 Why?
 ====
-Meteor's fibers let you wait (i.e. during I/O) without blocking the event loop.
-But the greatest of all ways to wait has been unattainable until now.
-This package lets you sprinkle sleep statements throughout your code to convince your boss to buy better hardware.
-Or rate-limit your API usage without using setTimeout.
+Meteor's fibers let you wait (i.e. during I/O) without blocking the event
+loop.  But the greatest of all ways to wait has been unattainable until now.
+This package lets you sprinkle sleep statements throughout your code to
+convince your boss to buy better hardware.  Or rate-limit your API usage
+without using setTimeout.
 
 ```javascript
 // Shopify wants no more than two events per second.

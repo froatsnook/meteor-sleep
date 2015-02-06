@@ -44,7 +44,7 @@ var results;
     var currentPage = FetchOrders(i);
     results = results.concat(currentPage);
     Meteor.setTimeout(function() {
-        caller(i + 1);
+        fetcher(i + 1);
     }, 500);
 })(0);
 ```

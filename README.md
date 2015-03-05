@@ -7,6 +7,11 @@ console.assert(Meteor.isServer); // Meteor.sleep only works on the server
 Meteor.sleep(1000); // ms
 ```
 
+```javascript
+console.assert(Meteor.isServer); // Meteor.sleepUntil only works on the server
+Meteor.sleepUntil(new Date(2020, 3, 1));
+```
+
 Why?
 ====
 Meteor's fibers let you wait (i.e. during I/O) without blocking the event loop.  But the greatest of all ways to wait has been unattainable until now.  This package lets you sprinkle sleep statements throughout your code to convince your boss to buy better hardware.  Or to rate-limit your API usage without using setTimeout.

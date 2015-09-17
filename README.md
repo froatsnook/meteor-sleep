@@ -34,7 +34,7 @@ The real advantage is code clarity.  The following examples demonstrate how this
 
 ```javascript
 // plain javascript
-var results;
+var results = [];
 (function fetcher(i) {
     if (i === 5) {
         HandleResults(results);

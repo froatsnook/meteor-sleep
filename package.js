@@ -1,7 +1,7 @@
 Package.describe({
     name: "froatsnook:sleep",
     summary: "Fiber-friendly/async sleep statements",
-    version: "1.1.0",
+    version: "1.2.0",
     git: "https://github.com/froatsnook/meteor-sleep"
 });
 

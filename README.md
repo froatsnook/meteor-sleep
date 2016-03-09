@@ -49,6 +49,8 @@ async function() {
 
 In other words, `Meteor.sleep` also works on the client now.  This won't actually work until Meteor 1.3, but prepare yourself.
 
+In a future version it should be possible to use `await Meteor.sleep()` on the server for a truly isomorphic experience.
+
 Alternatives
 ============
 The real advantage is code clarity.  The following examples demonstrate how this code might be written in the browser (where fibers are not available).

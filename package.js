@@ -7,7 +7,7 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom("0.9.2");
-    api.addFiles("server/lib/sleep.js", ["server"]);
+    api.addFiles("server/sleep.js", ["server"]);
 });
 
 Package.onTest(function(api) {

@@ -1,14 +1,14 @@
-Fiber-friendly sleep statements (server only)
+Fiber-friendly/async sleep statements
 
 Example
 =======
 ```javascript
-console.assert(Meteor.isServer); // Meteor.sleep only works on the server
+console.assert(Meteor.isServer); // Meteor.sleep (without ES7) only works on the server
 Meteor.sleep(1000); // ms
 ```
 
 ```javascript
-console.assert(Meteor.isServer); // Meteor.sleepUntil only works on the server
+console.assert(Meteor.isServer); // Meteor.sleepUntil (without ES7) only works on the server
 Meteor.sleepUntil(new Date(2020, 3, 1));
 ```
 
@@ -27,6 +27,27 @@ for (var i = 0; i < numPages; i++) {
 }
 HandleResults(results);
 ```
+
+Now with ES7 support
+====================
+Have you ever wondered what the best ES7 feature is?  Well, the answer is async/await.  Here's why:
+
+```javascript
+console.assert(Meteor.isClient); // Meteor.sleep works on the client with ES7
+async function() {
+    // Do stuff
+
+    // Sleep 2 seconds
+    await Meteor.sleep(2000);
+
+    // Sleep for days
+    await Meteor.sleepUntil(new Date(2020, 3, 1));
+
+    // Do other stuff
+}
+```
+
+In other words, `Meteor.sleep` also works on the client now.  This won't actually work until Meteor 1.3, but prepare yourself.
 
 Alternatives
 ============

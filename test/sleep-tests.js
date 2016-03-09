@@ -1,13 +1,4 @@
 if (Meteor.isServer) {
-    Meteor.methods({
-        sleep: function(ms) {
-            var start = Date.now();
-            Meteor.sleep(ms);
-            var end = Date.now();
-            return end - start;
-        }
-    });
-
     Tinytest.add("typeof Meteor.sleep === \"function\"", function(test) {
         test.equal(typeof Meteor.sleep, "function");
     });
@@ -72,43 +63,91 @@ if (Meteor.isServer) {
         var diff = Math.abs(now.getTime() - date.getTime());
         test.isTrue(diff < 10);
     });
-
 } else {
-    Tinytest.add("typeof Meteor.sleep === \"undefined\"", function(test) {
-        test.equal(typeof Meteor.sleep, "undefined");
+    Tinytest.add("typeof Meteor.sleep === \"function\"", function(test) {
+        test.equal(typeof Meteor.sleep, "function");
     });
 
-    Tinytest.add("typeof Meteor.sleepUntil === \"undefined\"", function(test) {
-        test.equal(typeof Meteor.sleepUntil, "undefined");
+    Tinytest.add("typeof Meteor.sleepUntil === \"function\"", function(test) {
+        test.equal(typeof Meteor.sleepUntil, "function");
     });
 
-    Tinytest.addAsync("Meteor.sleep(0)", function(test, done) {
-        Meteor.call("sleep", 0, function(err, elapsed) {
-            test.isUndefined(err);
-
-            var variance = Math.abs(elapsed - 0);
-            test.isTrue(variance < 10);
-            done();
-        });
-    });
-
-    Tinytest.addAsync("Meteor.sleep(1000)", function(test, done) {
-        Meteor.call("sleep", 1000, function(err, elapsed) {
-            test.isUndefined(err);
-
-            var variance = Math.abs(elapsed - 1000);
-            test.isTrue(variance < 10);
-            done();
-        });
+    Tinytest.add("Meteor.sleep returns a Promise", function(test) {
+        test.isTrue(Meteor.sleep() instanceof Promise);
     });
 
     Tinytest.addAsync("Meteor.sleep()", function(test, done) {
-        Meteor.call("sleep", undefined, function(err, elapsed) {
-            test.isUndefined(err);
-
+        var start = Date.now();
+        Meteor.sleep()
+        .then(function() {
+            var now = Date.now();
+            var elapsed = now - start;
             var variance = Math.abs(elapsed - 0);
+            test.isTrue(variance < 10);
+            done();
+        })
+        .catch(function() {
+            test.fail();
+            done();
+        });
+    });
+
+    Tinytest.addAsync("Meteor.sleep(0)", function(test, done) {
+        var start = Date.now();
+        Meteor.sleep(0)
+        .then(function() {
+            var now = Date.now();
+            var elapsed = now - start;
+            var variance = Math.abs(elapsed - 0);
+            test.isTrue(variance < 10);
+            done();
+        })
+        .catch(function() {
+            test.fail();
+            done();
+        });
+    });
+
+    Tinytest.addAsync("Meteor.sleep(200)", function(test, done) {
+        var start = Date.now();
+        Meteor.sleep(200)
+        .then(function() {
+            var now = Date.now();
+            var elapsed = now - start;
+            var variance = Math.abs(elapsed - 200);
+            test.isTrue(variance < 10);
+            done();
+        })
+        .catch(function() {
+            test.fail();
+            done();
+        });
+    });
+
+    Tinytest.addAsync("Meteor.sleepUntil() returns rejected promise", function(test, done) {
+        Meteor.sleepUntil()
+        .then(function() {
+            test.fail();
+            done();
+        })
+        .catch(function() {
+            test.ok();
+            done();
+        });
+    });
+
+    Tinytest.addAsync("Meteor.sleepUntil(now + 1000)", function(test, done) {
+        var start = Date.now();
+
+        Meteor.sleepUntil(+start + 1000)
+        .then(function() {
+            var end = Date.now();
+            var elapsed = end - start;
+            var variance = Math.abs(1000 - elapsed);
             test.isTrue(variance < 10);
             done();
         });
     });
+
 }
+
